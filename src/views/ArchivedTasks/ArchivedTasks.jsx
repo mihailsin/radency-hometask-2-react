@@ -1,6 +1,14 @@
 import React from "react";
-import ArchivedTable from "../../components/ArchivedTable/ArchivedTable";
-
+import TasksTable from "../../components/TasksTable";
+import { useSelector } from "react-redux";
+import Wrapper from "../../components/Wrapper";
 export const ArchivedTasks = () => {
-  return <ArchivedTable />;
+  const archivedTasks = useSelector((state) =>
+    state.tasks.filter((task) => task.archived)
+  );
+  return (
+    <Wrapper>
+      <TasksTable tasks={archivedTasks} tableFor="archived" />
+    </Wrapper>
+  );
 };

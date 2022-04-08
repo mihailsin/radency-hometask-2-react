@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { add, edit } from "../../redux/slices";
 import { nanoid } from "nanoid";
 import { RelativeContainer } from "../../components/RelativeContainer/RelativeContainer.Styled";
@@ -18,6 +18,9 @@ const Tasks = () => {
   const [category, setCategory] = useState("Task");
   const [content, setContent] = useState("");
   const dispatch = useDispatch();
+  const activeTasks = useSelector((state) =>
+    state.tasks.filter((task) => task.active)
+  );
 
   const inputHandler = (e) => {
     switch (e.target.name) {
@@ -84,6 +87,8 @@ const Tasks = () => {
         <TasksTable
           toggleModal={toggleTaskModal}
           toggleEditModal={toggleEditTaskModal}
+          tasks={activeTasks}
+          tableFor="active"
         />
         {taskFormIsVisible && (
           <TaskForm
