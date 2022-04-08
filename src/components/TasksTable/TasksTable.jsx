@@ -14,7 +14,7 @@ import {
   DataElement,
 } from "./TasksTable.styled";
 
-const TasksTable = ({ toggleModal }) => {
+const TasksTable = ({ toggleModal, toggleEditModal }) => {
   const items = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
   return (
@@ -48,7 +48,7 @@ const TasksTable = ({ toggleModal }) => {
                   <DataElement>{content}</DataElement>
                   <DataElement>{dates}</DataElement>
                   <DataElement>
-                    <Button type="button">
+                    <Button type="button" onClick={() => toggleEditModal(id)}>
                       <AiOutlineEdit size={20} />
                     </Button>
                     <Button

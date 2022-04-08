@@ -1,8 +1,4 @@
 import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { add } from "../../redux/slices";
-import { nanoid } from "nanoid";
 import {
   Backdrop,
   Content,
@@ -11,50 +7,17 @@ import {
   Select,
   Input,
   TextArea,
-} from "./AddTaskForm.styled";
+} from "./TaskForm.styled";
 import { Button } from "../TableButton/TableButton.styled";
 import { CgCloseO } from "react-icons/cg";
 
-const AddTaskForm = ({ toggleModal }) => {
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("Task");
-  const [content, setContent] = useState("");
-  const dispatch = useDispatch();
-
-  const inputHandler = (e) => {
-    switch (e.target.name) {
-      case "name":
-        setName(e.target.value);
-        break;
-      case "category":
-        setCategory(e.target.value);
-        break;
-      case "content":
-        setContent(e.target.value);
-        break;
-
-      default:
-        return;
-    }
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const date =
-      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d)/g;
-    const task = {
-      id: nanoid(10),
-      name,
-      created: new Date().toLocaleString(),
-      category,
-      content,
-      archived: false,
-      active: true,
-      dates: content.match(date)?.join(", ") || "",
-    };
-    dispatch(add(task));
-  };
-
+const TaskForm = ({
+  toggleModal,
+  title,
+  submitHandler,
+  inputHandler,
+  category,
+}) => {
   return (
     <Backdrop>
       <div>
@@ -66,10 +29,10 @@ const AddTaskForm = ({ toggleModal }) => {
             >
               <CgCloseO size={20} />
             </Button>
-            <Title>Add task</Title>
+            <Title>{title}</Title>
             <Select
               name="category"
-              id="category"
+              id={category}
               value={category}
               onChange={inputHandler}
             >
@@ -105,4 +68,4 @@ const AddTaskForm = ({ toggleModal }) => {
   );
 };
 
-export default AddTaskForm;
+export default TaskForm;

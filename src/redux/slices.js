@@ -44,6 +44,11 @@ const initialState = [
   },
 ];
 
+// To make things easier, createReducer uses immer to let you write
+// reducers as if they were mutating the state directly. In reality,
+// the reducer receives a proxy state that translates all mutations
+// into equivalent copy operations.
+
 export const taskSlice = createSlice({
   name: "tasks",
   initialState,
@@ -59,7 +64,15 @@ export const taskSlice = createSlice({
       task.archived = !task.archived;
       task.active = !task.active;
     },
+    edit: (state, { payload }) => {
+      const task = state.find((item) => item.id === payload.id);
+
+      task.name = payload.name;
+      task.category = payload.category;
+      task.content = payload.content;
+      task.dates = payload.dates ? payload.dates : "";
+    },
   },
 });
 
-export const { add, remove, toggleArchived } = taskSlice.actions;
+export const { add, remove, toggleArchived, edit } = taskSlice.actions;

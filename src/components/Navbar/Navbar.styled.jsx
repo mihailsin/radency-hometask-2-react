@@ -5,6 +5,6 @@ export const Nav = styled.nav`
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  background-color: #aaa;
-  color: #111;
+  background-color: #111;
+  color: #fff;
 `;

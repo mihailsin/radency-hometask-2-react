@@ -6,13 +6,15 @@ import Wrapper from "../Wrapper";
 // NavLink styles
 
 const active = {
-  color: "#d4c323",
+  color: "#fff",
+  textDecoration: "none",
   marginRight: "20px",
+  fontStyle: "italic",
 };
 
 const link = {
   textDecoration: "none",
-  color: "#3849ad",
+  color: "#fff",
   marginRight: "20px",
 };
 
