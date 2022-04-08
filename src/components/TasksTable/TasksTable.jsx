@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { remove, toggleArchived } from "../../redux/slices";
 import { Button } from "../TableButton/TableButton.styled";
 import { AiOutlineEdit } from "react-icons/ai";
-import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
+import { BiArchiveIn } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import {
   Table,
@@ -14,7 +14,7 @@ import {
   DataElement,
 } from "./TasksTable.styled";
 
-const TasksTable = ({ toggleModal, toggleArchivedModal }) => {
+const TasksTable = ({ toggleModal }) => {
   const items = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
   return (
@@ -69,9 +69,6 @@ const TasksTable = ({ toggleModal, toggleArchivedModal }) => {
       <div>
         <button type="button" onClick={() => toggleModal()}>
           Add Task
-        </button>
-        <button type="button" onClick={() => toggleArchivedModal()}>
-          View Archived
         </button>
       </div>
     </>
