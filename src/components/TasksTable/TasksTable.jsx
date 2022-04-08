@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import TableButton from "../TableButton";
+import { remove, toggleArchived } from "../../redux/slices";
+import { Button } from "../TableButton/TableButton.styled";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
@@ -13,8 +14,9 @@ import {
   DataElement,
 } from "./TasksTable.styled";
 
-const TasksTable = ({ toggleModal }) => {
+const TasksTable = ({ toggleModal, toggleArchivedModal }) => {
   const items = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
   return (
     <>
       <Table>
@@ -26,43 +28,50 @@ const TasksTable = ({ toggleModal }) => {
             <HeaderElement>Content</HeaderElement>
             <HeaderElement>Dates</HeaderElement>
             <HeaderElement>
-              <TableButton type="button">
+              <Button type="button">
                 <BiArchiveIn size={20} />
-              </TableButton>
-              <TableButton type="button">
+              </Button>
+              <Button type="button">
                 <MdDelete size={20} />
-              </TableButton>
+              </Button>
             </HeaderElement>
           </TableRow>
         </TableHeader>
         <TableBody>
           {items.map(
-            ({ id, name, created, category, content, dates, archived }) => (
-              <TableRow key={id}>
-                <DataElement>{name}</DataElement>
-                <DataElement>{created}</DataElement>
-                <DataElement>{category}</DataElement>
-                <DataElement>{content}</DataElement>
-                <DataElement>{dates}</DataElement>
-                <DataElement>
-                  <TableButton type="button">
-                    <AiOutlineEdit size={20} />
-                  </TableButton>
-                  <TableButton type="button">
-                    <BiArchiveIn size={20} />
-                  </TableButton>
-                  <TableButton type="button">
-                    <MdDelete size={20} />
-                  </TableButton>
-                </DataElement>
-              </TableRow>
-            )
+            ({ id, name, created, category, content, dates, archived }) =>
+              !archived && (
+                <TableRow key={id}>
+                  <DataElement>{name}</DataElement>
+                  <DataElement>{created}</DataElement>
+                  <DataElement>{category}</DataElement>
+                  <DataElement>{content}</DataElement>
+                  <DataElement>{dates}</DataElement>
+                  <DataElement>
+                    <Button type="button">
+                      <AiOutlineEdit size={20} />
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => dispatch(toggleArchived(id))}
+                    >
+                      <BiArchiveIn size={20} />
+                    </Button>
+                    <Button type="button" onClick={() => dispatch(remove(id))}>
+                      <MdDelete size={20} />
+                    </Button>
+                  </DataElement>
+                </TableRow>
+              )
           )}
         </TableBody>
       </Table>
       <div>
         <button type="button" onClick={() => toggleModal()}>
           Add Task
+        </button>
+        <button type="button" onClick={() => toggleArchivedModal()}>
+          View Archived
         </button>
       </div>
     </>

@@ -14,6 +14,7 @@ import {
 } from "./AddTaskForm.styled";
 import { Button } from "../TableButton/TableButton.styled";
 import { CgCloseO } from "react-icons/cg";
+
 const AddTaskForm = ({ toggleModal }) => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Task");

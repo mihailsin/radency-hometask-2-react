@@ -54,7 +54,12 @@ export const taskSlice = createSlice({
     remove: (state, { payload }) => {
       return state.filter((item) => item.id !== payload);
     },
+    toggleArchived: (state, { payload }) => {
+      const task = state.find((item) => item.id === payload);
+      task.archived = !task.archived;
+      task.active = !task.active;
+    },
   },
 });
 
-export const { add, remove } = taskSlice.actions;
+export const { add, remove, toggleArchived } = taskSlice.actions;
