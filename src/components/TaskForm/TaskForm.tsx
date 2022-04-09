@@ -15,7 +15,11 @@ interface TaskFormProps {
   toggleModal(id: string | void): void;
   title: string;
   submitHandler(e: React.SyntheticEvent): void;
-  inputHandler(e: React.ChangeEvent<HTMLInputElement>): void;
+  inputHandler(
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ): void;
   category: string;
 }
 
@@ -40,7 +44,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
             <Title>{title}</Title>
             <Select
               name="category"
-              id={category}
+              id="category"
               value={category}
               onChange={inputHandler}
             >
@@ -57,18 +61,17 @@ const TaskForm: React.FC<TaskFormProps> = ({
               onChange={inputHandler}
             />
 
-            <Label name="date" htmlFor="content">
-              Todo Content
-            </Label>
+            <Label htmlFor="content">Todo Content</Label>
             <TextArea
               name="content"
               id="content"
-              cols="30"
-              rows="10"
+              cols={30}
+              rows={10}
               required
               onChange={inputHandler}
             ></TextArea>
-            <button type="submit">Add ToDo</button>
+            {title === "Add Task" && <button type="submit">Add ToDo</button>}
+            {title === "Edit Task" && <button type="submit">Edit ToDo</button>}
           </Content>
         </form>
       </div>

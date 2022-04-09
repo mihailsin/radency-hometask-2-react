@@ -1,5 +1,5 @@
 export interface ITask {
-  id: string;
+  id: string | object;
   name: string;
   created?: string;
   category: string;

@@ -24,7 +24,11 @@ const Tasks: React.FC = () => {
     state.tasks.filter((task) => task.active)
   );
 
-  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputHandler = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     switch (e.target.name) {
       case "name":
         setName(e.target.value);

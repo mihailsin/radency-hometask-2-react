@@ -1,18 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
-import type { RootState } from "./store";
 import { ITask } from "../interfaces/interfaces";
-
-// interface taskState = {
-//   id: object,
-//     name: string,
-//     created: string,
-//     category: string,
-//     content: string,
-//     archived: boolean,
-//     active: boolean,
-//     dates: string,
-// }
 
 const initialState = [
   {
@@ -66,24 +54,28 @@ export const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    add: (state: any[], action: PayloadAction<object>) => {
+    add: (state: ITask[], action: PayloadAction<ITask>) => {
       state.push(action.payload); //slices uses Immer, so it's immutable
     },
-    remove: (state: any[], action: PayloadAction<string>) => {
+    remove: (state: ITask[], action: PayloadAction<string>) => {
       return state.filter((item) => item.id !== action.payload);
     },
-    toggleArchived: (state: any[], action: PayloadAction<string>) => {
+    toggleArchived: (state: ITask[], action: PayloadAction<string>) => {
       const task = state.find((item) => item.id === action.payload);
-      task.archived = !task.archived;
-      task.active = !task.active;
+      if (task) {
+        task.archived = !task.archived;
+        task.active = !task.active;
+      }
     },
-    edit: (state: any[], { payload }) => {
+    edit: (state: ITask[], action: PayloadAction<ITask>) => {
+      const { payload } = action;
       const task = state.find((item) => item.id === payload.id);
-
-      task.name = payload.name;
-      task.category = payload.category;
-      task.content = payload.content;
-      task.dates = payload.dates ? payload.dates : "";
+      if (task) {
+        task.name = payload.name;
+        task.category = payload.category;
+        task.content = payload.content;
+        task.dates = payload.dates ? payload.dates : "";
+      }
     },
   },
 });
