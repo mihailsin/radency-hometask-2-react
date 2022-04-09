@@ -1,9 +1,9 @@
 import React from "react";
 import TasksTable from "../../components/TasksTable";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../redux/hooks";
 import Wrapper from "../../components/Wrapper";
 const ArchivedTasks = () => {
-  const archivedTasks = useSelector((state) =>
+  const archivedTasks = useAppSelector<any[]>((state) =>
     state.tasks.filter((task) => task.archived)
   );
   return (

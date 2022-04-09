@@ -10,7 +10,7 @@ import {
   DataElement,
 } from "../TasksTable/TasksTable.styled";
 
-const CategoriesTable = () => {
+const CategoriesTable: React.FC = () => {
   const taskList = useAppSelector((state) =>
     state.tasks.filter((element) => element.category === "Task")
   );

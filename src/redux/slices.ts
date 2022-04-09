@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 import type { RootState } from "./store";
+import { ITask } from "../interfaces/interfaces";
 
 // interface taskState = {
 //   id: object,
@@ -54,7 +55,7 @@ const initialState = [
     active: true,
     dates: "",
   },
-];
+] as ITask[];
 
 // To make things easier, createReducer uses immer to let you write
 // reducers as if they were mutating the state directly. In reality,

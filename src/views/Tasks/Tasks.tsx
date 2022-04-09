@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { ITask } from "../../interfaces/interfaces";
 import { add, edit } from "../../redux/slices";
 import { nanoid } from "nanoid";
 import { RelativeContainer } from "../../components/RelativeContainer/RelativeContainer.Styled";
@@ -13,7 +14,7 @@ const Tasks: React.FC = () => {
   const [taskFormIsVisible, setTaskFormIsVisible] = useState<boolean>(false);
   const [editTaskFormIsVisible, setEditTaskFormIsVisible] =
     useState<boolean>(false);
-  const [itemToEditId, setItemToEditId] = useState<null | string>(null);
+  const [itemToEditId, setItemToEditId] = useState<string>("");
 
   const [name, setName] = useState<string>("");
   const [category, setCategory] = useState<string>("Task");
@@ -44,7 +45,7 @@ const Tasks: React.FC = () => {
     e.preventDefault();
     const date =
       /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d)/g;
-    const task = {
+    const task: ITask = {
       id: nanoid(10),
       name,
       created: new Date().toLocaleString(),
@@ -61,7 +62,7 @@ const Tasks: React.FC = () => {
     e.preventDefault();
     const date =
       /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d)/g;
-    const task = {
+    const task: ITask = {
       id: itemToEditId,
       name,
       category,
