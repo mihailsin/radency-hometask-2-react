@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { keyframes } from "styled-components";
 export const Backdrop = styled.div`
   left: 0;
   top: 0;
@@ -12,6 +12,12 @@ export const Backdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
 `;
 
+const breatheAnimation = keyframes`
+ 0% { height: 50%; width: 50%; }
+ 30% { height: 40%; width: 40%; opacity: 0.6 }
+ 40% { height: 75%; width: 75%; opacity: 0.8; }
+ 100% { height: 100%; width: 100%; opacity: 1; }`;
+
 export const Content = styled.div`
   padding: 10px;
   display: flex;
@@ -20,6 +26,9 @@ export const Content = styled.div`
   align-items: center;
   width: 300px;
   background-color: #fff;
+  animation-name: ${breatheAnimation};
+  animation-duration: 3s;
+  animation-iteration-count: 1;
 `;
 
 export const Title = styled.h3`

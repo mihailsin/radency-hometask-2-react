@@ -2,7 +2,7 @@ import React from "react";
 import TasksTable from "../../components/TasksTable";
 import { useSelector } from "react-redux";
 import Wrapper from "../../components/Wrapper";
-export const ArchivedTasks = () => {
+const ArchivedTasks = () => {
   const archivedTasks = useSelector((state) =>
     state.tasks.filter((task) => task.archived)
   );
@@ -12,3 +12,4 @@ export const ArchivedTasks = () => {
     </Wrapper>
   );
 };
+export default ArchivedTasks;

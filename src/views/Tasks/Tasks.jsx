@@ -79,7 +79,6 @@ const Tasks = () => {
   const toggleEditTaskModal = (id) => {
     setEditTaskFormIsVisible(!editTaskFormIsVisible);
     setItemToEditId(id);
-    console.log(id);
   };
   return (
     <RelativeContainer>
