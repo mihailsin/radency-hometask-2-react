@@ -11,7 +11,15 @@ import {
 import { Button } from "../TableButton/TableButton.styled";
 import { CgCloseO } from "react-icons/cg";
 
-const TaskForm = ({
+interface TaskFormProps {
+  toggleModal(id: string | void): void;
+  title: string;
+  submitHandler(e: React.SyntheticEvent): void;
+  inputHandler(e: React.ChangeEvent<HTMLInputElement>): void;
+  category: string;
+}
+
+const TaskForm: React.FC<TaskFormProps> = ({
   toggleModal,
   title,
   submitHandler,

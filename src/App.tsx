@@ -1,10 +1,10 @@
 import React from "react";
 import Navbar from "./components/Navbar/Navbar";
-import Tasks from "./views/Tasks";
+import Tasks from "./views/Tasks/Tasks";
 import ArchivedTasks from "./views/ArchivedTasks/ArchivedTasks";
 import { Route, Routes } from "react-router-dom";
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <Navbar />
@@ -14,6 +14,6 @@ function App() {
       </Routes>
     </>
   );
-}
+};
 
 export default App;
