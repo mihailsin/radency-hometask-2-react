@@ -81,8 +81,13 @@ export const taskSlice = createSlice({
         return null;
       });
     },
-    removeAll: (state: ITask[]) => {
-      return (state = []);
+
+    removeArchived: (state: ITask[]) => {
+      return state.filter((task) => !task.archived);
+    },
+
+    removeActive: (state: ITask[]) => {
+      return state.filter((task) => task.archived);
     },
 
     edit: (state: ITask[], action: PayloadAction<ITask>) => {
@@ -105,5 +110,6 @@ export const {
   edit,
   archiveAll,
   unArchiveAll,
-  removeAll,
+  removeArchived,
+  removeActive,
 } = taskSlice.actions;

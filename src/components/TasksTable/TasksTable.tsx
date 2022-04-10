@@ -6,7 +6,8 @@ import {
   toggleArchived,
   archiveAll,
   unArchiveAll,
-  removeAll,
+  removeArchived,
+  removeActive,
 } from "../../redux/slices";
 import { Button } from "../TableButton/TableButton.styled";
 import { AiOutlineEdit } from "react-icons/ai";
@@ -51,9 +52,19 @@ const TasksTable: React.FC<ITasksTableProps> = ({
                   <BiArchiveOut size={20} />
                 </Button>
               )}
-              <Button type="button" onClick={() => dispatch(removeAll())}>
-                <MdDelete size={20} />
-              </Button>
+              {tableFor === "active" && (
+                <Button type="button" onClick={() => dispatch(removeActive())}>
+                  <MdDelete size={20} />
+                </Button>
+              )}
+              {tableFor === "archived" && (
+                <Button
+                  type="button"
+                  onClick={() => dispatch(removeArchived())}
+                >
+                  <MdDelete size={20} />
+                </Button>
+              )}
             </HeaderElement>
           </TableRow>
         </TableHeader>
