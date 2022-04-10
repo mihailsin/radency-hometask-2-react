@@ -15,7 +15,6 @@ const Tasks: React.FC = () => {
   const [editTaskFormIsVisible, setEditTaskFormIsVisible] =
     useState<boolean>(false);
   const [itemToEditId, setItemToEditId] = useState<string>("");
-
   const [name, setName] = useState<string>("");
   const [category, setCategory] = useState<string>("Task");
   const [content, setContent] = useState<string>("");
@@ -45,10 +44,16 @@ const Tasks: React.FC = () => {
     }
   };
 
+  const resetAndClose = () => {
+    setName("");
+    setContent("");
+    toggleTaskModal();
+  };
+
   const addContactHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const date =
-      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d)/g;
+      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d|\d\.\d\.\d\d\d\d|\d\/\d\/\d\d\d\d|\d\d\/\d\/\d\d\d\d|\d\d.\d.\d\d\d\d)/g;
     const task: ITask = {
       id: nanoid(10),
       name,
@@ -60,12 +65,13 @@ const Tasks: React.FC = () => {
       dates: content.match(date)?.join(", ") || "",
     };
     dispatch(add(task));
+    resetAndClose();
   };
 
   const editContactHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const date =
-      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d)/g;
+      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d|\d\.\d\.\d\d\d\d|\d\/\d\/\d\d\d\d|\d\d\/\d\/\d\d\d\d|\d\d.\d.\d\d\d\d)/g;
     const task: ITask = {
       id: itemToEditId,
       name,
@@ -76,6 +82,7 @@ const Tasks: React.FC = () => {
       dates: content.match(date)?.join(", ") || "",
     };
     dispatch(edit(task));
+    setEditTaskFormIsVisible(!editTaskFormIsVisible);
   };
 
   const toggleTaskModal = () => {

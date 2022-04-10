@@ -1,4 +1,5 @@
 import React from "react";
+import { ITaskFormProps } from "../../interfaces/interfaces";
 import {
   Backdrop,
   Content,
@@ -11,19 +12,7 @@ import {
 import { Button } from "../TableButton/TableButton.styled";
 import { CgCloseO } from "react-icons/cg";
 
-interface TaskFormProps {
-  toggleModal(id: string | void): void;
-  title: string;
-  submitHandler(e: React.SyntheticEvent): void;
-  inputHandler(
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ): void;
-  category: string;
-}
-
-const TaskForm: React.FC<TaskFormProps> = ({
+const TaskForm: React.FC<ITaskFormProps> = ({
   toggleModal,
   title,
   submitHandler,
@@ -70,8 +59,8 @@ const TaskForm: React.FC<TaskFormProps> = ({
               required
               onChange={inputHandler}
             ></TextArea>
-            {title === "Add Task" && <button type="submit">Add ToDo</button>}
-            {title === "Edit Task" && <button type="submit">Edit ToDo</button>}
+            {title === "Add Task" && <button type="submit">Add Task</button>}
+            {title === "Edit Task" && <button type="submit">Edit Task</button>}
           </Content>
         </form>
       </div>

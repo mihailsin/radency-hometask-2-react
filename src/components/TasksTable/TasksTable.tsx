@@ -1,6 +1,14 @@
 import React from "react";
+import { ITasksTableProps } from "../../interfaces/interfaces";
 import { useAppDispatch } from "../../redux/hooks";
-import { remove, toggleArchived } from "../../redux/slices";
+import {
+  remove,
+  toggleArchived,
+  archiveAll,
+  unArchiveAll,
+  removeArchived,
+  removeActive,
+} from "../../redux/slices";
 import { Button } from "../TableButton/TableButton.styled";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiArchiveIn, BiArchiveOut } from "react-icons/bi";
@@ -13,16 +21,10 @@ import {
   TableRow,
   TableBody,
   DataElement,
+  ButtonsWrapper,
 } from "./TasksTable.styled";
 
-interface TasksTableProps {
-  toggleEditModal?(id: string): void;
-  toggleModal?(): void;
-  tasks: any[];
-  tableFor: string;
-}
-
-const TasksTable: React.FC<TasksTableProps> = ({
+const TasksTable: React.FC<ITasksTableProps> = ({
   toggleModal,
   toggleEditModal,
   tasks,
@@ -41,18 +43,28 @@ const TasksTable: React.FC<TasksTableProps> = ({
             <HeaderElement>Dates</HeaderElement>
             <HeaderElement>
               {tableFor === "active" && (
-                <Button type="button">
+                <Button type="button" onClick={() => dispatch(archiveAll())}>
                   <BiArchiveIn size={20} />
                 </Button>
               )}
               {tableFor === "archived" && (
-                <Button type="button">
+                <Button type="button" onClick={() => dispatch(unArchiveAll())}>
                   <BiArchiveOut size={20} />
                 </Button>
               )}
-              <Button type="button">
-                <MdDelete size={20} />
-              </Button>
+              {tableFor === "active" && (
+                <Button type="button" onClick={() => dispatch(removeActive())}>
+                  <MdDelete size={20} />
+                </Button>
+              )}
+              {tableFor === "archived" && (
+                <Button
+                  type="button"
+                  onClick={() => dispatch(removeArchived())}
+                >
+                  <MdDelete size={20} />
+                </Button>
+              )}
             </HeaderElement>
           </TableRow>
         </TableHeader>
@@ -65,35 +77,37 @@ const TasksTable: React.FC<TasksTableProps> = ({
               <DataElement>{content}</DataElement>
               <DataElement>{dates}</DataElement>
               <DataElement>
-                {tableFor === "active" && (
-                  <>
-                    <Button
-                      type="button"
-                      onClick={() =>
-                        toggleEditModal ? toggleEditModal(id) : null
-                      }
-                    >
-                      <AiOutlineEdit size={20} />
-                    </Button>
+                <ButtonsWrapper>
+                  {tableFor === "active" && (
+                    <>
+                      <Button
+                        type="button"
+                        onClick={() =>
+                          toggleEditModal ? toggleEditModal(id) : null
+                        }
+                      >
+                        <AiOutlineEdit size={20} />
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() => dispatch(toggleArchived(id))}
+                      >
+                        <BiArchiveIn size={20} />
+                      </Button>
+                    </>
+                  )}
+                  {tableFor === "archived" && (
                     <Button
                       type="button"
                       onClick={() => dispatch(toggleArchived(id))}
                     >
-                      <BiArchiveIn size={20} />
+                      <BiArchiveOut size={20} />
                     </Button>
-                  </>
-                )}
-                {tableFor === "archived" && (
-                  <Button
-                    type="button"
-                    onClick={() => dispatch(toggleArchived(id))}
-                  >
-                    <BiArchiveOut size={20} />
+                  )}
+                  <Button type="button" onClick={() => dispatch(remove(id))}>
+                    <MdDelete size={20} />
                   </Button>
-                )}
-                <Button type="button" onClick={() => dispatch(remove(id))}>
-                  <MdDelete size={20} />
-                </Button>
+                </ButtonsWrapper>
               </DataElement>
             </TableRow>
           ))}
