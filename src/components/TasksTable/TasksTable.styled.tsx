@@ -26,4 +26,5 @@ export const DataElement = styled.td`
 export const ButtonsWrapper = styled.div`
   display: flex;
   flex-flow: row-nowrap;
+  justify-content: center;
 `;

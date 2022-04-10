@@ -53,7 +53,7 @@ const Tasks: React.FC = () => {
   const addContactHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const date =
-      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d|\d\.\d\.\d\d\d\d|\d\/\d\/\d\d\d\d)/g;
+      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d|\d\.\d\.\d\d\d\d|\d\/\d\/\d\d\d\d|\d\d\/\d\/\d\d\d\d|\d\d.\d.\d\d\d\d)/g;
     const task: ITask = {
       id: nanoid(10),
       name,
@@ -71,7 +71,7 @@ const Tasks: React.FC = () => {
   const editContactHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const date =
-      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d|\d\.\d\.\d\d\d\d|\d\/\d\/\d\d\d\d)/g;
+      /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d|\d\.\d\.\d\d\d\d|\d\/\d\/\d\d\d\d|\d\d\/\d\/\d\d\d\d|\d\d.\d.\d\d\d\d)/g;
     const task: ITask = {
       id: itemToEditId,
       name,
