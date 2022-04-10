@@ -20,12 +20,12 @@ const CategoriesTable: React.FC = () => {
   const thoughtsList = useAppSelector((state) =>
     state.tasks.filter((element) => element.category === "Random Thought")
   );
-  const activeTasks = taskList.filter((todo) => todo.active);
-  const archivedTasks = taskList.filter((todo) => todo.archived);
-  const activeIdeas = ideaList.filter((todo) => todo.active);
-  const archivedIdeas = ideaList.filter((todo) => todo.archived);
-  const activeThoughts = thoughtsList.filter((todo) => todo.active);
-  const archivedThoughts = thoughtsList.filter((todo) => todo.archived);
+  const activeTasks: any[] = taskList.filter((todo) => todo.active);
+  const archivedTasks: any[] = taskList.filter((todo) => todo.archived);
+  const activeIdeas: any[] = ideaList.filter((todo) => todo.active);
+  const archivedIdeas: any[] = ideaList.filter((todo) => todo.archived);
+  const activeThoughts: any[] = thoughtsList.filter((todo) => todo.active);
+  const archivedThoughts: any[] = thoughtsList.filter((todo) => todo.archived);
   return (
     <Table>
       <TableHeader>

@@ -67,6 +67,24 @@ export const taskSlice = createSlice({
         task.active = !task.active;
       }
     },
+    archiveAll: (state: ITask[]) => {
+      state.map((item) => {
+        item.archived = true;
+        item.active = false;
+        return null;
+      });
+    },
+    unArchiveAll: (state: ITask[]) => {
+      state.map((item) => {
+        item.archived = false;
+        item.active = true;
+        return null;
+      });
+    },
+    removeAll: (state: ITask[]) => {
+      return (state = []);
+    },
+
     edit: (state: ITask[], action: PayloadAction<ITask>) => {
       const { payload } = action;
       const task = state.find((item) => item.id === payload.id);
@@ -80,4 +98,12 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { add, remove, toggleArchived, edit } = taskSlice.actions;
+export const {
+  add,
+  remove,
+  toggleArchived,
+  edit,
+  archiveAll,
+  unArchiveAll,
+  removeAll,
+} = taskSlice.actions;
