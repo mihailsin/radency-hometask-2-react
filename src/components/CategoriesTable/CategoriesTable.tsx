@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../redux/hooks";
 
 import {
   Table,
@@ -10,14 +10,14 @@ import {
   DataElement,
 } from "../TasksTable/TasksTable.styled";
 
-const CategoriesTable = () => {
-  const taskList = useSelector((state) =>
+const CategoriesTable: React.FC = () => {
+  const taskList = useAppSelector((state) =>
     state.tasks.filter((element) => element.category === "Task")
   );
-  const ideaList = useSelector((state) =>
+  const ideaList = useAppSelector((state) =>
     state.tasks.filter((element) => element.category === "Idea")
   );
-  const thoughtsList = useSelector((state) =>
+  const thoughtsList = useAppSelector((state) =>
     state.tasks.filter((element) => element.category === "Random Thought")
   );
   const activeTasks = taskList.filter((todo) => todo.active);

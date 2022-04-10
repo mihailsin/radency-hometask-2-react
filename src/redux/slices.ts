@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
+import { ITask } from "../interfaces/interfaces";
 
 const initialState = [
   {
@@ -42,7 +43,7 @@ const initialState = [
     active: true,
     dates: "",
   },
-];
+] as ITask[];
 
 // To make things easier, createReducer uses immer to let you write
 // reducers as if they were mutating the state directly. In reality,
@@ -53,24 +54,28 @@ export const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    add: (state, { payload }) => {
-      state.push(payload); //slices uses Immer, so it's immutable
+    add: (state: ITask[], action: PayloadAction<ITask>) => {
+      state.push(action.payload); //slices uses Immer, so it's immutable
     },
-    remove: (state, { payload }) => {
-      return state.filter((item) => item.id !== payload);
+    remove: (state: ITask[], action: PayloadAction<string>) => {
+      return state.filter((item) => item.id !== action.payload);
     },
-    toggleArchived: (state, { payload }) => {
-      const task = state.find((item) => item.id === payload);
-      task.archived = !task.archived;
-      task.active = !task.active;
+    toggleArchived: (state: ITask[], action: PayloadAction<string>) => {
+      const task = state.find((item) => item.id === action.payload);
+      if (task) {
+        task.archived = !task.archived;
+        task.active = !task.active;
+      }
     },
-    edit: (state, { payload }) => {
+    edit: (state: ITask[], action: PayloadAction<ITask>) => {
+      const { payload } = action;
       const task = state.find((item) => item.id === payload.id);
-
-      task.name = payload.name;
-      task.category = payload.category;
-      task.content = payload.content;
-      task.dates = payload.dates ? payload.dates : "";
+      if (task) {
+        task.name = payload.name;
+        task.category = payload.category;
+        task.content = payload.content;
+        task.dates = payload.dates ? payload.dates : "";
+      }
     },
   },
 });

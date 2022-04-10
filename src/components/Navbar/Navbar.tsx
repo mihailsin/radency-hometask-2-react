@@ -18,7 +18,7 @@ const link = {
   marginRight: "20px",
 };
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
     <Wrapper>
       <Nav>

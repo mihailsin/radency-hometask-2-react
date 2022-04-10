@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../redux/hooks";
 import { remove, toggleArchived } from "../../redux/slices";
 import { Button } from "../TableButton/TableButton.styled";
 import { AiOutlineEdit } from "react-icons/ai";
@@ -15,8 +15,20 @@ import {
   DataElement,
 } from "./TasksTable.styled";
 
-const TasksTable = ({ toggleModal, toggleEditModal, tasks, tableFor }) => {
-  const dispatch = useDispatch();
+interface TasksTableProps {
+  toggleEditModal?(id: string): void;
+  toggleModal?(): void;
+  tasks: any[];
+  tableFor: string;
+}
+
+const TasksTable: React.FC<TasksTableProps> = ({
+  toggleModal,
+  toggleEditModal,
+  tasks,
+  tableFor,
+}) => {
+  const dispatch = useAppDispatch();
   return (
     <>
       <Table>
@@ -55,7 +67,12 @@ const TasksTable = ({ toggleModal, toggleEditModal, tasks, tableFor }) => {
               <DataElement>
                 {tableFor === "active" && (
                   <>
-                    <Button type="button" onClick={() => toggleEditModal(id)}>
+                    <Button
+                      type="button"
+                      onClick={() =>
+                        toggleEditModal ? toggleEditModal(id) : null
+                      }
+                    >
                       <AiOutlineEdit size={20} />
                     </Button>
                     <Button
@@ -84,7 +101,10 @@ const TasksTable = ({ toggleModal, toggleEditModal, tasks, tableFor }) => {
       </Table>
       <div>
         {tableFor === "active" && (
-          <Button type="button" onClick={() => toggleModal()}>
+          <Button
+            type="button"
+            onClick={() => (toggleModal ? toggleModal() : null)}
+          >
             <AiFillFolderAdd size={50} />
           </Button>
         )}

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { ITask } from "../../interfaces/interfaces";
 import { add, edit } from "../../redux/slices";
 import { nanoid } from "nanoid";
 import { RelativeContainer } from "../../components/RelativeContainer/RelativeContainer.Styled";
@@ -9,20 +10,25 @@ import TasksTable from "../../components/TasksTable";
 import CategoriesTable from "../../components/CategoriesTable";
 import TaskForm from "../../components/TaskForm/TaskForm";
 
-const Tasks = () => {
-  const [taskFormIsVisible, setTaskFormIsVisible] = useState(false);
-  const [editTaskFormIsVisible, setEditTaskFormIsVisible] = useState(false);
-  const [itemToEditId, setItemToEditId] = useState(null);
+const Tasks: React.FC = () => {
+  const [taskFormIsVisible, setTaskFormIsVisible] = useState<boolean>(false);
+  const [editTaskFormIsVisible, setEditTaskFormIsVisible] =
+    useState<boolean>(false);
+  const [itemToEditId, setItemToEditId] = useState<string>("");
 
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("Task");
-  const [content, setContent] = useState("");
-  const dispatch = useDispatch();
-  const activeTasks = useSelector((state) =>
+  const [name, setName] = useState<string>("");
+  const [category, setCategory] = useState<string>("Task");
+  const [content, setContent] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const activeTasks = useAppSelector((state) =>
     state.tasks.filter((task) => task.active)
   );
 
-  const inputHandler = (e) => {
+  const inputHandler = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     switch (e.target.name) {
       case "name":
         setName(e.target.value);
@@ -39,11 +45,11 @@ const Tasks = () => {
     }
   };
 
-  const addContactHandler = (e) => {
+  const addContactHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const date =
       /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d)/g;
-    const task = {
+    const task: ITask = {
       id: nanoid(10),
       name,
       created: new Date().toLocaleString(),
@@ -56,11 +62,11 @@ const Tasks = () => {
     dispatch(add(task));
   };
 
-  const editContactHandler = (e) => {
+  const editContactHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const date =
       /(\d\d\.\d\d\.\d\d\d\d|\d\.\d\d\.\d\d\d\d|\d\d\/\d\d\/\d\d\d\d|\d\/\d\d\/\d\d\d\d)/g;
-    const task = {
+    const task: ITask = {
       id: itemToEditId,
       name,
       category,
@@ -76,7 +82,7 @@ const Tasks = () => {
     setTaskFormIsVisible(!taskFormIsVisible);
   };
 
-  const toggleEditTaskModal = (id) => {
+  const toggleEditTaskModal = (id: string) => {
     setEditTaskFormIsVisible(!editTaskFormIsVisible);
     setItemToEditId(id);
   };
@@ -104,7 +110,6 @@ const Tasks = () => {
             submitHandler={editContactHandler}
             category={category}
             title={"Edit Task"}
-            itemToEdit={itemToEditId}
             toggleModal={toggleEditTaskModal}
           />
         )}
