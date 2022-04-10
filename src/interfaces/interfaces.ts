@@ -1,5 +1,5 @@
 export interface ITask {
-  id: string | object;
+  id: string;
   name: string;
   created?: string;
   category: string;
@@ -24,6 +24,6 @@ export interface ITaskFormProps {
 export interface ITasksTableProps {
   toggleEditModal?(id: string): void;
   toggleModal?(): void;
-  tasks: any[];
+  tasks: ITask[];
   tableFor: string;
 }
